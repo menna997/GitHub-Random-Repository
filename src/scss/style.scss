@@ -1,0 +1,209 @@
+@import "variables";
+@import "global";
+
+/* =========================
+   Base Container
+========================= */
+
+.repository {
+    width: min(420px, 90%);
+    margin: 50px auto;
+    padding: 2rem;
+
+    background: #fff;
+    border: 2px solid #000;
+    border-radius: 16px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+/* =========================
+   Header
+========================= */
+
+.heading {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    h1 {
+        font-size: 1.6rem;
+        font-weight: 700;
+        color: #000;
+    }
+}
+
+.logo {
+    width: 42px;
+    height: 42px;
+    border-radius: 10px;
+    background: #000;
+}
+
+/* =========================
+   Select Input
+========================= */
+
+.language-select {
+    width: 100%;
+    padding: .9rem 1rem;
+
+    border: 2px solid #000;
+    border-radius: 10px;
+
+    font-size: 1rem;
+    background: #fff;
+
+    cursor: pointer;
+
+    &:focus {
+        outline: none;
+    }
+}
+
+/* =========================
+   States (Shared Box Style)
+========================= */
+
+.message,
+.loading,
+.error {
+    border-radius: 10px;
+    padding: 2rem;
+    text-align: center;
+
+    p {
+        font-size: 1rem;
+    }
+}
+
+/* Empty */
+.message {
+    background: #edf1f5;
+    display: block;
+
+    p {
+        color: #555;
+    }
+}
+
+/* Loading */
+.loading {
+    background: #e9eef5;
+    display: none;
+
+    p {
+        color: #333;
+        font-weight: 500;
+    }
+}
+
+/* Error */
+.error {
+    display: none;
+    background: #ffdede;
+
+    p {
+        color: #d00000;
+        font-weight: 600;
+        margin-bottom: 1rem;
+    }
+}
+
+/* =========================
+   Repository Card (Success)
+========================= */
+
+.repo-card {
+    display: none;
+    flex-direction: column;
+    gap: 1rem;
+
+    border: 2px solid #000;
+    border-radius: 10px;
+
+    padding: 1.25rem;
+    background: #fff;
+
+    h2 {
+        font-size: 1.3rem;
+        font-weight: 700;
+    }
+
+    p {
+        color: #666;
+        line-height: 1.5;
+    }
+}
+
+.repo-info {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+
+    span {
+        font-size: .9rem;
+        font-weight: 600;
+        color: #111;
+    }
+}
+
+/* =========================
+   Buttons
+========================= */
+
+.refresh-btn,
+.retry-btn {
+    width: 100%;
+    padding: .9rem;
+
+    border: none;
+    border-radius: 10px;
+
+    font-size: 1rem;
+    cursor: pointer;
+
+    transition: 0.2s ease;
+
+    &:hover {
+        opacity: .9;
+    }
+}
+
+/* Refresh */
+.refresh-btn {
+    display: none;
+    background: #000;
+    color: #fff;
+}
+
+/* Retry */
+.retry-btn {
+    background: #ef2d2d;
+    color: #fff;
+}
+
+/* =========================
+   Utility States
+========================= */
+.show {
+    display: block !important;
+}
+
+.repo-card.show {
+    display: flex !important;
+}
+
+.error.show {
+    display: block !important;
+}
+
+.loading.show {
+    display: block !important;
+}
+
+.refresh-btn.show {
+    display: block !important;
+}

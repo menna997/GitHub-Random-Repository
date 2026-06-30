@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub Repository Finder</title>
+
+    <link rel="stylesheet" href="./src/css/style.css">
+</head>
+
+<body>
+
+<main class="repository">
+
+    <div class="heading">
+        <div class="logo"></div>
+
+        <h1>GitHub Repository Finder</h1>
+    </div>
+
+    <select class="language-select" id="language">
+        <option value="" selected disabled>Select a language</option>
+        <option value="javascript">JavaScript</option>
+        <option value="python">Python</option>
+        <option value="java">Java</option>
+        <option value="typescript">TypeScript</option>
+    </select>
+
+    <!-- Empty -->
+    <div class="message" id="message">
+        <p>Please select a language</p>
+    </div>
+
+    <!-- Loading -->
+    <div class="loading" id="loading">
+        <p>Loading, please wait...</p>
+    </div>
+
+    <!-- Error -->
+    <div class="error" id="error">
+
+        <p>Error fetching repositories</p>
+
+        <button class="retry-btn" id="retryBtn">
+            Click to retry
+        </button>
+
+    </div>
+
+    <!-- Repository Card -->
+    <article class="repo-card" id="repoCard">
+
+        <h2 id="repoName"></h2>
+
+        <p id="repoDescription"></p>
+
+        <div class="repo-info">
+
+            <span id="repoLanguage"></span>
+
+            <span id="repoStars"></span>
+
+            <span id="repoForks"></span>
+
+            <span id="repoIssues"></span>
+
+        </div>
+
+    </article>
+
+    <button class="refresh-btn" id="refreshBtn">
+        Refresh
+    </button>
+
+</main>
+<script src="./src/js/script.js"></script>
+
+</body>
+
+</html>
