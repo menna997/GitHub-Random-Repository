@@ -207,3 +207,109 @@
 .refresh-btn.show {
     display: block !important;
 }
+
+/* =========================
+   Responsive
+========================= */
+
+@media (max-width: 768px) {
+    .repository {
+        width: 95%;
+        margin: 30px auto;
+        padding: 1.5rem;
+    }
+
+    .heading {
+        gap: 10px;
+
+        h1 {
+            font-size: 1.35rem;
+        }
+    }
+
+    .logo {
+        width: 36px;
+        height: 36px;
+    }
+
+    .language-select {
+        font-size: .95rem;
+        padding: .8rem;
+    }
+
+    .message,
+    .loading,
+    .error {
+        padding: 1.5rem;
+    }
+
+    .repo-card {
+        padding: 1rem;
+
+        h2 {
+            font-size: 1.15rem;
+            word-break: break-word;
+        }
+
+        p {
+            font-size: .95rem;
+        }
+    }
+
+    .repo-info {
+        gap: 8px;
+
+        span {
+            font-size: .85rem;
+        }
+    }
+
+    .refresh-btn,
+    .retry-btn {
+        padding: .8rem;
+        font-size: .95rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .repository {
+        width: 95%;
+        padding: 1rem;
+        margin: 20px auto;
+    }
+
+    .heading {
+        flex-direction: column;
+        text-align: center;
+
+        h1 {
+            font-size: 1.2rem;
+        }
+    }
+
+    .logo {
+        width: 34px;
+        height: 34px;
+    }
+
+    .repo-card {
+        h2 {
+            font-size: 1.05rem;
+        }
+
+        p {
+            font-size: .9rem;
+        }
+    }
+
+    .repo-info {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+    }
+
+    .refresh-btn,
+    .retry-btn {
+        font-size: .9rem;
+    }
+}
