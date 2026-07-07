@@ -2,79 +2,106 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
     <title>GitHub Repository Finder</title>
 
-    <link rel="stylesheet" href="./src/css/style.css">
+    <link rel="stylesheet" href="./src/css/style.css" />
 </head>
 
 <body>
 
-<main class="repository">
+    <main class="repository">
 
-    <div class="heading">
-        <div class="logo"></div>
+        <!-- Header -->
+        <header class="repository__header">
+            <div class="repository__logo"></div>
+            <h1 class="repository__title">GitHub Repository Finder</h1>
+        </header>
 
-        <h1>GitHub Repository Finder</h1>
-    </div>
+        <!-- Language Select -->
+        <select class="repository__select">
+            <option value="" selected disabled>Select a language</option>
+            <option value="javascript">JavaScript</option>
+            <option value="python">Python</option>
+            <option value="java">Java</option>
+            <option value="typescript">TypeScript</option>
+        </select>
 
-    <select class="language-select" id="language">
-        <option value="" selected disabled>Select a language</option>
-        <option value="javascript">JavaScript</option>
-        <option value="python">Python</option>
-        <option value="java">Java</option>
-        <option value="typescript">TypeScript</option>
-    </select>
+        <!-- Empty State -->
+        <section class="repository__message repository__message--empty">
+            <p class="repository__message-text">
+                Please select a language
+            </p>
+        </section>
 
-    <!-- Empty -->
-    <div class="message" id="message">
-        <p>Please select a language</p>
-    </div>
+        <!-- Loading State -->
+        <section class="repository__message repository__message--loading">
+            <p class="repository__message-text">
+                Loading, please wait...
+            </p>
+        </section>
 
-    <!-- Loading -->
-    <div class="loading" id="loading">
-        <p>Loading, please wait...</p>
-    </div>
+        <!-- Error State -->
+        <div class="repository__error-container">
 
-    <!-- Error -->
-    <div class="error" id="error">
+            <section class="repository__message repository__message--error">
+                <p class="repository__message-text"></p>
+            </section>
 
-        <p>Error fetching repositories</p>
-
-        <button class="retry-btn" id="retryBtn">
-            Click to retry
-        </button>
-
-    </div>
-
-    <!-- Repository Card -->
-    <article class="repo-card" id="repoCard">
-
-        <h2 id="repoName"></h2>
-
-        <p id="repoDescription"></p>
-
-        <div class="repo-info">
-
-            <span id="repoLanguage"></span>
-
-            <span id="repoStars"></span>
-
-            <span id="repoForks"></span>
-
-            <span id="repoIssues"></span>
+            <button class="repository__button repository__button--retry">
+                Click to retry
+            </button>
 
         </div>
 
-    </article>
+        <!-- Repository Card -->
+        <article class="repository__card">
 
-    <button class="refresh-btn" id="refreshBtn">
-        Refresh
-    </button>
+            <h2 class="repository__card-title"></h2>
 
-</main>
-<script src="./src/js/script.js"></script>
+            <p class="repository__card-description"></p>
+
+            <div class="repo-info">
+
+                <div class="repository__info">
+
+                    <span class="repository__language">
+                        <i class="fa-solid fa-circle"></i>
+                        <span class="repository__language-text"></span>
+                    </span>
+
+                    <span class="repository__info-item">
+                        <i class="fa-solid fa-star"></i>
+                        <span class="repository__stars"></span>
+                    </span>
+
+                    <span class="repository__info-item">
+                        <i class="fa-solid fa-code-fork"></i>
+                        <span class="repository__forks"></span>
+                    </span>
+
+                    <span class="repository__info-item">
+                        <i class="fa-solid fa-circle-exclamation"></i>
+
+                        <span class="repository__issues"></span>
+                    </span>
+
+                </div>
+
+            </div>
+
+        </article>
+
+        <!-- Refresh Button -->
+        <button class="repository__button repository__button--refresh">
+            Refresh
+        </button>
+
+    </main>
+
+    <script src="./src/js/script.js"></script>
 
 </body>
 

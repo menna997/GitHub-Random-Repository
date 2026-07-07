@@ -1,116 +1,173 @@
-const language = document.getElementById("language");
+"use strict";
 
-const message = document.getElementById("message");
-const loading = document.getElementById("loading");
-const errorBox = document.getElementById("error");
+const languageSelect = document.querySelector(".repository__select");
 
-const repoCard = document.getElementById("repoCard");
-const refreshBtn = document.getElementById("refreshBtn");
+const messageBox = document.querySelector(".repository__message");
+const messageText = document.querySelector(".repository__message-text");
 
-const repoName = document.getElementById("repoName");
-const repoDescription = document.getElementById("repoDescription");
-const repoLanguage = document.getElementById("repoLanguage");
-const repoStars = document.getElementById("repoStars");
-const repoForks = document.getElementById("repoForks");
-const repoIssues = document.getElementById("repoIssues");
+const repoCard = document.querySelector(".repository__card");
 
-/* =========================
-   STATES
-========================= */
+const repoName = document.querySelector(".repository__card-title");
+const repoDescription = document.querySelector(".repository__card-description");
 
-function setEmpty() {
-    message.classList.add("show");
+const repoLanguage = document.querySelector(".repository__language-text");
+const repoStars = document.querySelector(".repository__stars");
+const repoForks = document.querySelector(".repository__forks");
+const repoIssues = document.querySelector(".repository__issues");
+const languageDot = document.querySelector(".repository__language-dot");
 
-    loading.classList.remove("show");
-    errorBox.classList.remove("show");
-    repoCard.classList.remove("show");
-    refreshBtn.classList.remove("show");
-}
+const refreshButton = document.querySelector(".repository__button--refresh");
+const retryButton = document.querySelector(".repository__button--retry");
 
-function setLoading() {
-    message.classList.remove("show");
+/*
+    STATE HANDLER
+*/
 
-    loading.classList.add("show");
+function setState(type, text = "") {
 
-    errorBox.classList.remove("show");
-    repoCard.classList.remove("show");
-    refreshBtn.classList.remove("show");
-}
-
-function setError() {
-    message.classList.remove("show");
-    loading.classList.remove("show");
-
-    errorBox.classList.add("show");
+    messageBox.className = "repository__message";
 
     repoCard.classList.remove("show");
-    refreshBtn.classList.remove("show");
-}
+    refreshButton.classList.remove("show");
 
-function setSuccess() {
-    message.classList.remove("show");
-    loading.classList.remove("show");
-    errorBox.classList.remove("show");
+    retryButton.style.display = "none";
 
-    repoCard.classList.add("show");
-    refreshBtn.classList.add("show");
-}
+    if (type === "success") {
 
-/* =========================
-   FETCH DATA
-========================= */
+        messageBox.style.display = "none";
 
-async function getRepo() {
-    const lang = language.value;
+        repoCard.classList.add("show");
+        refreshButton.classList.add("show");
 
-    if (!lang) {
-        setEmpty();
         return;
     }
 
-    setLoading();
 
-    try {
-        const page = Math.floor(Math.random() * 10) + 1;
+    messageBox.classList.add(`repository__message--${type}`);
+    messageBox.style.display = "block";
+    messageText.textContent = text;
 
-        const res = await fetch(
-            `https://api.github.com/search/repositories?q=language:${lang}&sort=stars&page=${page}`
+    if (type === "error") {
+        retryButton.style.display = "block";
+    }
+}
+
+
+/*
+    FETCH REPOSITORY
+*/
+
+async function getRepository() {
+
+    const language = languageSelect.value;
+
+
+    if (!language) {
+
+        setState(
+            "empty",
+            "Please select a language"
         );
 
-        if (!res.ok) throw new Error("API Error");
+        return;
+    }
 
-        const data = await res.json();
+
+    setState(
+        "loading",
+        "Loading, please wait..."
+    );
+
+
+    try {
+
+        const page = Math.floor(Math.random() * 50) + 1;
+
+
+        const response = await fetch(
+            `https://api.github.com/search/repositories?q=language:${language}&sort=stars&page=${page}`
+        );
+
+
+        if (!response.ok) {
+
+            throw new Error("API Error");
+
+        }
+
+
+        const data = await response.json();
+
 
         if (!data.items || data.items.length === 0) {
-            setError();
+
+            setState(
+                "error",
+                "No repositories found"
+            );
+
             return;
         }
 
-        const repo = data.items[Math.floor(Math.random() * data.items.length)];
+
+        const repo = data.items[0];
+
 
         repoName.textContent = repo.name;
-        repoDescription.textContent = repo.description || "No description available";
+
+        repoDescription.textContent =
+            repo.description || "No description available";
+
+
         repoLanguage.textContent = repo.language || "N/A";
         repoStars.textContent = repo.stargazers_count;
         repoForks.textContent = repo.forks_count;
         repoIssues.textContent = repo.open_issues_count;
 
-        setSuccess();
+        setState("success");
 
-    } catch (err) {
-        setError();
+
+    } catch (error) {
+
+
+        setState(
+            "error",
+            "Error fetching repositories"
+        );
+
     }
+
 }
 
-/* =========================
-   EVENTS
-========================= */
 
-language.addEventListener("change", getRepo);
-refreshBtn.addEventListener("click", getRepo);
+/*
+    EVENTS
+*/
 
-/* =========================
-   INIT
-========================= */
+languageSelect.addEventListener(
+    "change",
+    getRepository
+);
 
-setEmpty();
+
+refreshButton.addEventListener(
+    "click",
+    getRepository
+);
+
+
+retryButton.addEventListener(
+    "click",
+    getRepository
+);
+
+
+
+/*
+    INITIAL STATE
+*/
+
+setState(
+    "empty",
+    "Please select a language"
+);

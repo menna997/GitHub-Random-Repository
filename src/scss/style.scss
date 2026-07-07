@@ -1,315 +1,291 @@
-@import "variables";
-@import "global";
+:root {
+    --primary-color: #000;
+    --white-color: #fff;
+    --background-color: #f6f6f6;
+    --text-color: #333;
+    --light-text-color: #666;
 
-/* =========================
-   Base Container
-========================= */
+    --empty-bg: #edf1f5;
+    --loading-bg: #e9eef5;
+    --error-bg: #ffdede;
+
+    --danger-color: #ef2d2d;
+    --error-color: #d00000;
+
+    --border-radius: 10px;
+    --container-radius: 16px;
+    --transition: 0.2s ease;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    background: var(--background-color);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-family: Arial, Helvetica, sans-serif;
+}
 
 .repository {
-    width: min(420px, 90%);
-    margin: 50px auto;
+    width: 100%;
+    max-width: 420px;
+
+    margin: 2rem;
     padding: 2rem;
 
-    background: #fff;
-    border: 2px solid #000;
-    border-radius: 16px;
+    background: var(--white-color);
+
+    border: 2px solid var(--primary-color);
+    border-radius: var(--container-radius);
 
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
-}
 
-/* =========================
-   Header
-========================= */
+    // Header
 
-.heading {
-    display: flex;
-    align-items: center;
-    gap: 12px;
+    &__header {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
 
-    h1 {
-        font-size: 1.6rem;
+    &__logo {
+        width: 42px;
+        height: 42px;
+
+        background: var(--primary-color);
+
+        border-radius: var(--border-radius);
+    }
+
+    &__title {
+        font-size: 1.5rem;
         font-weight: 700;
-        color: #000;
+
+        color: var(--primary-color);
     }
-}
 
-.logo {
-    width: 42px;
-    height: 42px;
-    border-radius: 10px;
-    background: #000;
-}
+    // Select
 
-/* =========================
-   Select Input
-========================= */
+    &__select {
+        width: 100%;
 
-.language-select {
-    width: 100%;
-    padding: .9rem 1rem;
+        padding: 0.9rem 1rem;
 
-    border: 2px solid #000;
-    border-radius: 10px;
+        border: 2px solid var(--primary-color);
+        border-radius: var(--border-radius);
 
-    font-size: 1rem;
-    background: #fff;
+        background: var(--white-color);
 
-    cursor: pointer;
-
-    &:focus {
-        outline: none;
-    }
-}
-
-/* =========================
-   States (Shared Box Style)
-========================= */
-
-.message,
-.loading,
-.error {
-    border-radius: 10px;
-    padding: 2rem;
-    text-align: center;
-
-    p {
         font-size: 1rem;
+
+        cursor: pointer;
+
+        &:focus {
+            outline: none;
+        }
+    }
+
+    // Messages
+
+    &__message {
+        display: none;
+
+        padding: 2rem;
+
+        border-radius: var(--border-radius);
+
+        text-align: center;
+
+        &-text {
+            font-size: 1rem;
+        }
+
+        &--empty {
+            display: block;
+
+            background: var(--empty-bg);
+
+            .repository__message-text {
+                color: var(--light-text-color);
+            }
+        }
+
+        &--loading {
+            background: var(--loading-bg);
+
+            .repository__message-text {
+                color: var(--text-color);
+                font-weight: 600;
+            }
+        }
+
+        &--error {
+            background: var(--error-bg);
+
+            .repository__message-text {
+                color: var(--primary-color);
+
+                margin-bottom: 1rem;
+
+                font-weight: 700;
+            }
+        }
+    }
+
+    // Repository Card
+
+    &__card {
+        display: none;
+
+        flex-direction: column;
+
+        gap: 1rem;
+
+        padding: 1.25rem;
+
+        border: 2px solid var(--primary-color);
+
+        border-radius: var(--border-radius);
+
+        background: var(--white-color);
+
+        &-title {
+            font-size: 1.3rem;
+
+            font-weight: 700;
+        }
+
+        &-description {
+            color: var(--light-text-color);
+
+            line-height: 1.5;
+        }
+    }
+
+    // Info
+
+    &__info {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+
+        span {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        i {
+            color: var(--light-text-color);
+            font-size: 0.9rem;
+        }
+
+        .fa-circle {
+            color: #f1c40f;
+        }
+    }
+
+    // Buttons
+
+    &__button {
+        width: 100%;
+
+        padding: 0.9rem;
+
+        border: none;
+
+        border-radius: var(--border-radius);
+
+        font-size: 1rem;
+
+        cursor: pointer;
+
+        transition: var(--transition);
+
+        &:hover {
+            opacity: 0.9;
+        }
+
+        &--refresh {
+            display: none;
+
+            background: var(--primary-color);
+
+            color: var(--white-color);
+        }
+
+        &--retry {
+            display: none;
+            background: var(--danger-color);
+
+            color: var(--white-color);
+        }
     }
 }
 
-/* Empty */
-.message {
-    background: #edf1f5;
-    display: block;
+// JS States
 
-    p {
-        color: #555;
-    }
-}
-
-/* Loading */
-.loading {
-    background: #e9eef5;
-    display: none;
-
-    p {
-        color: #333;
-        font-weight: 500;
-    }
-}
-
-/* Error */
-.error {
-    display: none;
-    background: #ffdede;
-
-    p {
-        color: #d00000;
-        font-weight: 600;
-        margin-bottom: 1rem;
-    }
-}
-
-/* =========================
-   Repository Card (Success)
-========================= */
-
-.repo-card {
-    display: none;
-    flex-direction: column;
-    gap: 1rem;
-
-    border: 2px solid #000;
-    border-radius: 10px;
-
-    padding: 1.25rem;
-    background: #fff;
-
-    h2 {
-        font-size: 1.3rem;
-        font-weight: 700;
-    }
-
-    p {
-        color: #666;
-        line-height: 1.5;
-    }
-}
-
-.repo-info {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-
-    span {
-        font-size: .9rem;
-        font-weight: 600;
-        color: #111;
-    }
-}
-
-/* =========================
-   Buttons
-========================= */
-
-.refresh-btn,
-.retry-btn {
-    width: 100%;
-    padding: .9rem;
-
-    border: none;
-    border-radius: 10px;
-
-    font-size: 1rem;
-    cursor: pointer;
-
-    transition: 0.2s ease;
-
-    &:hover {
-        opacity: .9;
-    }
-}
-
-/* Refresh */
-.refresh-btn {
-    display: none;
-    background: #000;
-    color: #fff;
-}
-
-/* Retry */
-.retry-btn {
-    background: #ef2d2d;
-    color: #fff;
-}
-
-/* =========================
-   Utility States
-========================= */
 .show {
     display: block !important;
 }
 
-.repo-card.show {
+.repository__card.show {
     display: flex !important;
 }
 
-.error.show {
+.repository__button--refresh.show {
     display: block !important;
 }
 
-.loading.show {
-    display: block !important;
-}
-
-.refresh-btn.show {
-    display: block !important;
-}
-
-/* =========================
-   Responsive
-========================= */
+// Responsive
 
 @media (max-width: 768px) {
     .repository {
-        width: 95%;
-        margin: 30px auto;
         padding: 1.5rem;
-    }
 
-    .heading {
-        gap: 10px;
-
-        h1 {
+        &__title {
             font-size: 1.35rem;
         }
-    }
 
-    .logo {
-        width: 36px;
-        height: 36px;
-    }
-
-    .language-select {
-        font-size: .95rem;
-        padding: .8rem;
-    }
-
-    .message,
-    .loading,
-    .error {
-        padding: 1.5rem;
-    }
-
-    .repo-card {
-        padding: 1rem;
-
-        h2 {
-            font-size: 1.15rem;
-            word-break: break-word;
+        &__logo {
+            width: 36px;
+            height: 36px;
         }
-
-        p {
-            font-size: .95rem;
-        }
-    }
-
-    .repo-info {
-        gap: 8px;
-
-        span {
-            font-size: .85rem;
-        }
-    }
-
-    .refresh-btn,
-    .retry-btn {
-        padding: .8rem;
-        font-size: .95rem;
     }
 }
 
 @media (max-width: 480px) {
     .repository {
-        width: 95%;
         padding: 1rem;
-        margin: 20px auto;
-    }
 
-    .heading {
-        flex-direction: column;
-        text-align: center;
+        &__header {
+            flex-direction: column;
 
-        h1 {
+            text-align: center;
+        }
+
+        &__title {
             font-size: 1.2rem;
         }
-    }
 
-    .logo {
-        width: 34px;
-        height: 34px;
-    }
+        &__info {
+            flex-direction: column;
 
-    .repo-card {
-        h2 {
-            font-size: 1.05rem;
+            gap: 6px;
         }
-
-        p {
-            font-size: .9rem;
-        }
-    }
-
-    .repo-info {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 6px;
-    }
-
-    .refresh-btn,
-    .retry-btn {
-        font-size: .9rem;
     }
 }
